@@ -137,7 +137,11 @@ static zend_always_inline zend_bool php_pcov_wants(zend_string *filename) { /* {
 				ZSTR_VAL(filename), ZSTR_LEN(filename),
 #endif
 				&match, NULL,
+#if PHP_VERSION_ID >= 80400
+				false, 0, 0);
+#else
 				0, 0, 0, 0);
+#endif
 
 			if (zend_is_true(&match)) {
 				zend_hash_add_empty_element(
